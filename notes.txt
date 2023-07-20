@@ -1,3 +1,6 @@
 om deb file te installen: 
 sudo dpkg -i /path/to/deb/file
 sudo apt-get install -f
+
+compiler path:
+// /usr/local/gcc-8.5.0/bin/gcc-8.5.0
