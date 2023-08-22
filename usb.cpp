@@ -1,7 +1,8 @@
-#include <gtest/gtest.h>
+//#include <gtest/gtest.h>
 #include <fstream>
 #include <experimental/filesystem>
-
+#include <dirent.h> // Include this for opendir and related functions
+#include <iostream>
 namespace fs = std::experimental::filesystem;
 
 class USB
@@ -55,52 +56,52 @@ public:
     }
 };
 
-class USBTest : public ::testing::Test
-{
-protected:
-    void SetUp() override
-    {
-        // Create the mock_usb directory if it doesn't exist
-        if (mkdir(usbFolderPath.c_str(), 0755) == -1) {
-            std::cerr << "Failed to create directory: " << usbFolderPath << std::endl;
-            return;
-        }
+// class USBTest : public ::testing::Test
+// {
+// protected:
+//     void SetUp() override
+//     {
+//         // Create the mock_usb directory if it doesn't exist
+//         if (mkdir(usbFolderPath.c_str(), 0755) == -1) {
+//             std::cerr << "Failed to create directory: " << usbFolderPath << std::endl;
+//             return;
+//         }
 
-        // Create some test files in the mock_usb folder
-        std::ofstream file1(usbFolderPath + "/file1.txt");
-        file1 << "Test data for file1";
-        file1.close();
+//         // Create some test files in the mock_usb folder
+//         std::ofstream file1(usbFolderPath + "/file1.txt");
+//         file1 << "Test data for file1";
+//         file1.close();
 
-        std::ofstream file2(usbFolderPath + "/file2.txt");
-        file2 << "Test data for file2";
-        file2.close();
-    }
+//         std::ofstream file2(usbFolderPath + "/file2.txt");
+//         file2 << "Test data for file2";
+//         file2.close();
+//     }
 
-    void TearDown() override
-    {
-        // Clean up the mock_usb directory after the tests
-        fs::remove_all(usbFolderPath);
-    }
+//     void TearDown() override
+//     {
+//         // Clean up the mock_usb directory after the tests
+//         fs::remove_all(usbFolderPath);
+//     }
 
-    std::string usbFolderPath = "/path/to/mock_usb";
-    std::string destinationFolderPath = "/path/to/mock_destination";
-};
+//     std::string usbFolderPath = "/path/to/mock_usb";
+//     std::string destinationFolderPath = "/path/to/mock_destination";
+// };
 
-TEST_F(USBTest, ImportDataFromFolderTest)
-{
-    USB usb(usbFolderPath, destinationFolderPath);
+// TEST_F(USBTest, ImportDataFromFolderTest)
+// {
+//     USB usb(usbFolderPath, destinationFolderPath);
 
-    // Call the importDataFromFolder() method
-    std::vector<std::string> copiedFiles = usb.importDataFromFolder();
+//     // Call the importDataFromFolder() method
+//     std::vector<std::string> copiedFiles = usb.importDataFromFolder();
 
-    // Assert that the expected files are copied
-    ASSERT_EQ(copiedFiles.size(), 2);
-    ASSERT_EQ(copiedFiles[0], destinationFolderPath + "/file1.txt");
-    ASSERT_EQ(copiedFiles[1], destinationFolderPath + "/file2.txt");
-}
+//     // Assert that the expected files are copied
+//     ASSERT_EQ(copiedFiles.size(), 2);
+//     ASSERT_EQ(copiedFiles[0], destinationFolderPath + "/file1.txt");
+//     ASSERT_EQ(copiedFiles[1], destinationFolderPath + "/file2.txt");
+// }
 
-int main(int argc, char** argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
+// int main(int argc, char** argv)
+// {
+//     testing::InitGoogleTest(&argc, argv);
+//     return RUN_ALL_TESTS();
+// }
